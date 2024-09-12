@@ -75,7 +75,7 @@ class TahunAkademikController extends Controller
     public function destroy(TahunAkademik $tahun)
     {
         try {
-            $tahun->delete();
+            $this->model->where('tahun', $tahun->tahun)->delete();
             return redirect()->back()->with('success', 'Tahun Akademik berhasil dihapus');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Tahun Akademik gagal dihapus');
@@ -89,13 +89,17 @@ class TahunAkademikController extends Controller
     {
         try {
             $status = 0;
-            $cek = $this->model->where('status', true)->where('tahun', $tahun->tahun)->first();
-            if ($cek) {
+            $cekTahun = $this->model->where('status', true)->where('tahun', $tahun->tahun)->first();
+            if ($cekTahun) {
                 $status = 1;
-                $cek->update([
+                $cekTahun->update([
                     'status' => false,
                 ]);
             } else {
+                $cek = $this->model->where('status', true)->first();
+                if ($cek) {
+                    return redirect()->back()->with('error', 'Tahun Akademik gagal diaktifkan, tahun akademik lain sudah aktif');
+                }
                 $status = 1;
             }
             $tahun->update([
@@ -103,6 +107,7 @@ class TahunAkademikController extends Controller
             ]);
             return redirect()->back()->with('success', 'Tahun Akademik berhasil diaktifkan');
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             return redirect()->back()->with('error', 'Tahun Akademik gagal diaktifkan');
         }
     }

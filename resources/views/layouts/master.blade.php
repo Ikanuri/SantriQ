@@ -47,6 +47,27 @@
 
     <!-- vendor-scripts -->
     @include('layouts.vendor-scripts')
+
+    {{-- alert --}}
+    <script>
+        alertify.set('notifier', 'position', 'top-right');
+        @if (session('success'))
+            alertify.success('{{ session('success') }}');
+        @elseif (session('error'))
+            alertify.error('{{ session('error') }}');
+        @elseif (session('info'))
+            alertify.message('{{ session('info') }}');
+        @elseif (session('warning'))
+            alertify.warning('{{ session('warning') }}');
+        @endif
+        // alertify.prompt("This is a prompt dialog.", "Default value",
+        //     function(evt, value) {
+        //         alertify.success(value);
+        //     },
+        //     function() {
+        //         alertify.error('Cancel');
+        //     });
+    </script>
 </body>
 
 </html>

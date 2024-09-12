@@ -50,18 +50,31 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($tahun as $thn)
+                                @foreach ($tahun->groupBy('tahun') as $thn)
+                                    {{-- @dd($thn) --}}
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
-                                        <td class="text-center">{{ $thn->tahun }}</td>
-                                        <td class="text-center">{{ $thn->semester }}</td>
+                                        <td class="text-center">{{ $thn[0]->tahun }}</td>
                                         <td class="text-center">
-                                            @if ($thn->status == 1)
-                                                <a href="{{ route('tahun.aktif', $thn->id) }}">
+                                            {{ $thn[0]->semester }}/{{ $thn[1]->semester }}
+                                        </td>
+                                        <td class="text-center">
+                                            @if ($thn[0]->status == 1)
+                                                <a href="{{ route('tahun.aktif', $thn[0]->id) }}">
                                                     <span class="badge bg-success-subtle text-success">Aktif</span>
                                                 </a>
                                             @else
-                                                <a href="{{ route('tahun.aktif', $thn->id) }}">
+                                                <a href="{{ route('tahun.aktif', $thn[0]->id) }}">
+                                                    <span class="badge bg-danger-subtle text-danger">Tidak Aktif</span>
+                                                </a>
+                                            @endif
+                                            /
+                                            @if ($thn[1]->status == 1)
+                                                <a href="{{ route('tahun.aktif', $thn[1]->id) }}">
+                                                    <span class="badge bg-success-subtle text-success">Aktif</span>
+                                                </a>
+                                            @else
+                                                <a href="{{ route('tahun.aktif', $thn[1]->id) }}">
                                                     <span class="badge bg-danger-subtle text-danger">Tidak Aktif</span>
                                                 </a>
                                             @endif
@@ -73,14 +86,14 @@
                                             <a href="javascript:;" role="button" class="btn btn-danger"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#hapus-{{ $loop->iteration }}">Hapus</a>
-                                            <x-modal id="hapus-{{ $loop->iteration }}" title="Hapus Data Surat Izin"
+                                            <x-modal id="hapus-{{ $loop->iteration }}" title="Hapus Data Tahun Akademik"
                                                 position="modal-dialog-centered">
-                                                <form class="text-center" action="{{ route('tahun.destroy', $thn->id) }}"
-                                                    method="POST">
+                                                <form class="text-center"
+                                                    action="{{ route('tahun.destroy', $thn[0]->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <p>
-                                                        Apakah anda yakin ingin menghapus data surat izin ini?
+                                                        Apakah anda yakin ingin menghapus data tahun akademik ini?
                                                     </p>
                                                     <div class="form-group mt-3">
                                                         <button type="button" data-bs-dismiss="modal"
@@ -90,17 +103,18 @@
                                                 </form>
                                             </x-modal>
                                         </td>
-                                        <x-modal id="edit-{{ $loop->iteration }}" title="Edit Data surat izin">
-                                            <form action="{{ route('tahun.update', $thn->id) }}" method="POST">
+                                        <x-modal id="edit-{{ $loop->iteration }}" title="Edit Data Tahun Akademik">
+                                            <form action="{{ route('tahun.update', $thn[0]->id) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="form-group mt-2">
-                                                    <label for="nama">Nama Surat Izin</label>
-                                                    <input type="text"
-                                                        class="form-control @error('nama') is-invalid @enderror"
-                                                        id="nama" name="nama"
-                                                        value="{{ old('nama') ?? $thn->nama }}" required>
-                                                    @error('nama')
+                                                    <label for="tahun">Tahun Akademik</label>
+                                                    <input type="number"
+                                                        class="form-control @error('tahun') is-invalid @enderror"
+                                                        id="tahun" name="tahun"
+                                                        value="{{ old('tahun') ?? $thn[0]->tahun }}" min="2024"
+                                                        required>
+                                                    @error('tahun')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>

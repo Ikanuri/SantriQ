@@ -16,4 +16,6 @@
 <script src="{{ URL::asset('build/libs/gridjs/gridjs.umd.js') }}"></script>
 <script src="{{ URL::asset('build/js/app.js') }}"></script>
 <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-2.1.6/datatables.min.js"></script>
+<!-- alertifyjs js -->
+<script src="{{ URL::asset('build/libs/alertifyjs/build/alertify.min.js') }}"></script>
 @stack('scripts')
