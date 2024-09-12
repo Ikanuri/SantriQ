@@ -58,11 +58,11 @@
                                         <td class="text-center">
                                             @if ($thn->status == 1)
                                                 <a href="{{ route('tahun.aktif', $thn->id) }}">
-                                                    <span class="badge bg-success">Aktif</span>
+                                                    <span class="badge bg-success-subtle text-success">Aktif</span>
                                                 </a>
                                             @else
                                                 <a href="{{ route('tahun.aktif', $thn->id) }}">
-                                                    <span class="badge bg-danger">Tidak Aktif</span>
+                                                    <span class="badge bg-danger-subtle text-danger">Tidak Aktif</span>
                                                 </a>
                                             @endif
                                         </td>
