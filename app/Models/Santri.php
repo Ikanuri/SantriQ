@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Santri extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+    public function kamar()
+    {
+        return $this->belongsTo(Kamar::class);
+    }
 }

@@ -20,7 +20,7 @@ File: Main Js File
 
     function initLanguage() {
         // Set new language
-        if (language != null && language !== default_lang){
+        if (language != null && language !== default_lang) {
             setLanguage(language);
         }
         var languages = document.getElementsByClassName("language");

@@ -42,8 +42,7 @@ class AuthController extends Controller
         ]);
         $credentials = $request->only('email', 'password');
         $remember = $request->filled('remember');
-        $user = User::where('email', $credentials['email'])->first();
-        if ($user && $user->attemptLogin($credentials, $remember)) {
+        if (Auth::attempt($credentials, $remember)) {
             return redirect()->intended('home')->with('success', 'Login successful.');
         }
         return back()->withErrors(['email' => 'Invalid credentials or too many login attempts.']);
