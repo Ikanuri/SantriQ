@@ -3,7 +3,7 @@
 
     <!-- LOGO -->
     <div class="navbar-brand-box">
-        <a href="index" class="logo logo-dark">
+        <a href="home" class="logo logo-dark">
             <span class="logo-sm">
                 <img src="{{ URL::asset('build/images/logo-dark-sm.png') }}" alt="" height="26">
             </span>
@@ -12,7 +12,7 @@
             </span>
         </a>
 
-        <a href="index" class="logo logo-light">
+        <a href="home" class="logo logo-light">
             <span class="logo-lg">
                 <img src="{{ URL::asset('build/images/logo-light.png') }}" alt="" height="30">
             </span>
@@ -80,13 +80,13 @@
                 {{-- applications --}}
                 <li class="menu-title" data-key="t-applications">Applications</li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('absensi.diniyah.index') }}">
                         <i class="bx bx-notepad icon nav-icon"></i>
                         <span class="menu-item" data-key="t-surat-izin">Absensi Diniyah</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('absensi.pengajian.index') }}">
                         <i class="bx bxs-notepad icon nav-icon"></i>
                         <span class="menu-item" data-key="t-surat-izin">Absensi Pengajian</span>
                     </a>

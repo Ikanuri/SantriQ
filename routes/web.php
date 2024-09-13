@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AbsensiDiniyahController;
+use App\Http\Controllers\AbsensiPengajianController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\KamarController;
 use App\Http\Controllers\PelanggaranController;
@@ -51,6 +53,18 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/tahun/akademik/{tahun}/update', 'update')->name('tahun.update');
         Route::delete('/tahun/akademik/{tahun}/destroy', 'destroy')->name('tahun.destroy');
         Route::get('/tahun/akademik/aktif/{tahun}', 'aktif')->name('tahun.aktif');
+    });
+    Route::controller(AbsensiDiniyahController::class)->group(function () {
+        Route::get('/absensi/diniyah', 'index')->name('absensi.diniyah.index');
+        Route::post('/absensi/diniyah/store', 'store')->name('absensi.diniyah.store');
+        Route::put('/absensi/diniyah/{absensi}/update', 'update')->name('absensi.diniyah.update');
+        Route::delete('/absensi/diniyah/{absensi}/destroy', 'destroy')->name('absensi.diniyah.destroy');
+    });
+    Route::controller(AbsensiPengajianController::class)->group(function () {
+        Route::get('/absensi/pengajian', 'index')->name('absensi.pengajian.index');
+        Route::post('/absensi/pengajian/store', 'store')->name('absensi.pengajian.store');
+        Route::put('/absensi/pengajian/{absensi}/update', 'update')->name('absensi.pengajian.update');
+        Route::delete('/absensi/pengajian/{absensi}/destroy', 'destroy')->name('absensi.pengajian.destroy');
     });
 
     # logout
