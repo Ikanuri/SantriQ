@@ -40,69 +40,85 @@
                 </li>
 
                 <li class="menu-title" data-key="t-master">Master</li>
-                <li>
-                    <a href="{{ route('rayon-kamar.index') }}">
-                        <i class="bx bx-calendar-event icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-rayon-kamar">Rayon Kamar</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('kamar.index') }}">
-                        <i class="bx bx-home-alt icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-kamar">Kamar</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('santri.index') }}">
-                        <i class='bx bx-user-pin icon nav-icon'></i>
-                        <span class="menu-item" data-key="t-santri">Santri</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('pelanggaran.index') }}">
-                        <i class="bx bx-dislike icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-pelanggaran">Pelanggaran</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('surat.index') }}">
-                        <i class="bx bx-envelope icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-surat-izin">Surat Izin</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('tahun.index') }}">
-                        <i class="bx bx-calendar icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-tahun-akademik">Tahun Akademik</span>
-                    </a>
-                </li>
+                @if (Auth::user()->role == 'pusat')
+                    <li>
+                        <a href="{{ route('rayon-kamar.index') }}">
+                            <i class="bx bx-calendar-event icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-rayon-kamar">Rayon Kamar</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('kamar.index') }}">
+                            <i class="bx bx-home-alt icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-kamar">Kamar</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('santri.index') }}">
+                            <i class='bx bx-user-pin icon nav-icon'></i>
+                            <span class="menu-item" data-key="t-santri">Santri</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('pelanggaran.index') }}">
+                            <i class="bx bx-dislike icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-pelanggaran">Pelanggaran</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('surat.index') }}">
+                            <i class="bx bx-envelope icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-surat-izin">Surat Izin</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('tahun.index') }}">
+                            <i class="bx bx-calendar icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-tahun-akademik">Tahun Akademik</span>
+                        </a>
+                    </li>
+                @endif
 
                 {{-- applications --}}
                 <li class="menu-title" data-key="t-applications">Applications</li>
-                <li>
-                    <a href="{{ route('absensi.diniyah.index') }}">
-                        <i class="bx bx-notepad icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-surat-izin">Absensi Diniyah</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('absensi.pengajian.index') }}">
-                        <i class="bx bxs-notepad icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-surat-izin">Absensi Pengajian</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="bx bx-dislike icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-surat-izin">Pelanggaran Santri</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="bx bx-envelope icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-surat-izin">Izin Santri</span>
-                    </a>
-                </li>
+                @if (Auth::user()->role == 'diniyah' || Auth::user()->role == 'pusat' || Auth::user()->role == 'kantib')
+                    <li>
+                        <a href="{{ route('absensi.diniyah.index') }}">
+                            <i class="bx bx-notepad icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-surat-izin">Absensi Diniyah</span>
+                        </a>
+                    </li>
+                @endif
+                @if (Auth::user()->role == 'pengajian' || Auth::user()->role == 'pusat' || Auth::user()->role == 'kantib')
+                    <li>
+                        <a href="{{ route('absensi.pengajian.index') }}">
+                            <i class="bx bxs-notepad icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-surat-izin">Absensi Pengajian</span>
+                        </a>
+                    </li>
+                @endif
+                @if (Auth::user()->role == 'kantib' || Auth::user()->role == 'pusat')
+                    <li>
+                        <a href="{{ route('pelanggaran.santri.index') }}">
+                            <i class="bx bx-dislike icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-surat-izin">Pelanggaran Santri</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('izin.santri.index') }}">
+                            <i class="bx bx-envelope icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-surat-izin">Izin Santri</span>
+                        </a>
+                    </li>
+                @endif
+                @if (Auth::user()->role == 'pusat')
+                    <li>
+                        <a href="{{ route('user.index') }}">
+                            <i class="bx bx-user icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-surat-izin">Pengguna</span>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </div>
         <!-- Sidebar -->

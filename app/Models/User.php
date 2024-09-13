@@ -30,6 +30,7 @@ class User extends Authenticatable
         'last_login_ip',
         'last_login_device',
         'last_login_browser',
+        'role',
     ];
 
     /**
