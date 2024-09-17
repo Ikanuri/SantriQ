@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('santris', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Kamar::class)->constrained()->cascadeOnDelete();
+            $table->integer('nomor_kamar');
             $table->string('nama');
             $table->string('alamat');
             $table->string('tempat_lahir');

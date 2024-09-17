@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\RayonKamar;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -20,5 +21,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
             'role' => 'pusat',
         ]);
+        $rayon_kamar = ["As-Syafi'ie", 'Al-Ghazali', 'Al-Bukhari', "Al-Asy'ari", 'Dalfis', 'EAL', 'Tahfidh', 'Salaf', 'Lokal Santri Baru'];
+        foreach ($rayon_kamar as $rayon) {
+            RayonKamar::create([
+                'nama' => $rayon,
+            ]);
+        }
     }
 }

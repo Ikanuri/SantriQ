@@ -54,6 +54,7 @@ class SantriController extends Controller
             $this->model->create($validated);
             return redirect()->back()->with('success', 'Santri berhasil ditambahkan');
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             return redirect()->back()->with('error', 'Santri gagal ditambahkan');
         }
     }
