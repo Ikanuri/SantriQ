@@ -3,9 +3,6 @@
 <script src="{{ URL::asset('build/libs/metismenujs/metismenujs.min.js') }}"></script>
 <script src="{{ URL::asset('build/libs/simplebar/simplebar.min.js') }}"></script>
 <script src="{{ URL::asset('build/libs/eva-icons/eva.min.js') }}"></script>
-<!-- Vector map-->
-<script src="{{ URL::asset('build/libs/jsvectormap/js/jsvectormap.min.js') }}"></script>
-<script src="{{ URL::asset('build/libs/jsvectormap/maps/world-merc.js') }}"></script>
 @if (request()->is('home'))
     <!-- apexcharts -->
     <script src="{{ URL::asset('build/libs/apexcharts/apexcharts.min.js') }}"></script>

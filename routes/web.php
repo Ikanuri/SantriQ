@@ -18,8 +18,9 @@ Route::get('/', function () {
     return to_route('login');
 });
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', [App\Http\Controllers\Home\HomeController::class, 'root'])->name('home');
-    // Route::get('{any}', [App\Http\Controllers\Home\HomeController::class, 'index'])->name('index');
+    Route::get('/home', [App\Http\Controllers\Home\HomeController::class, 'index'])->name('home');
+    Route::get('/pelanggaranBulanan', [App\Http\Controllers\Home\HomeController::class, 'pelanggaranBulanan'])->name('pelanggaranBulanan');
+    Route::get('/persentasePelanggaran', [App\Http\Controllers\Home\HomeController::class, 'persentasePelanggaran'])->name('persentasePelanggaran');
     Route::controller(RayonKamarController::class)->group(function () {
         Route::get('/rayon-kamar', 'index')->name('rayon-kamar.index');
         Route::post('/rayon-kamar/store', 'store')->name('rayon-kamar.store');

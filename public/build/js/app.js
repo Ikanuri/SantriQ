@@ -20,7 +20,7 @@ File: Main Js File
 
     function initLanguage() {
         // Set new language
-        if (language != null && language !== default_lang){
+        if (language != null && language !== default_lang) {
             setLanguage(language);
         }
         var languages = document.getElementsByClassName("language");
@@ -29,60 +29,6 @@ File: Main Js File
                 setLanguage(dropdown.getAttribute('data-lang'));
             });
         });
-    }
-
-    function setLanguage(lang) {
-        document.querySelectorAll(".header-lang-img").forEach(function (el) {
-            if (el) {
-                switch (lang) {
-                    case "eng":
-                        el.src = "build/images/flags/us.jpg";
-                        break;
-                    case "sp":
-                        el.src = "build/images/flags/spain.jpg";
-                        break;
-                    case "gr":
-                        el.src = "build/images/flags/germany.jpg";
-                        break;
-                    case "it":
-                        el.src = "build/images/flags/italy.jpg";
-                        break;
-                    case "ru":
-                        el.src = "build/images/flags/russia.jpg";
-                        break;
-                    default:
-                        el.src = "build/images/flags/us.jpg";
-                        break;
-                }
-                localStorage.setItem('language', lang);
-                language = localStorage.getItem('language');
-                getLanguage();
-            }
-        });
-    }
-
-    // Multi language setting
-    function getLanguage() {
-        (language == null) ? setLanguage(default_lang) : false;
-        var request = new XMLHttpRequest();
-        // Instantiating the request object
-        request.open("GET", 'build/lang/' + language + '.json');
-
-        // Defining event listener for readystatechange event
-        request.onreadystatechange = function () {
-            // Check if the request is compete and was successful
-            if (this.readyState === 4 && this.status === 200) {
-                var data = JSON.parse(this.responseText);
-                Object.keys(data).forEach(function (key) {
-                    var elements = document.querySelectorAll("[data-key='" + key + "']");
-                    elements.forEach(function (elem) {
-                        elem.textContent = data[key];
-                    });
-                });
-            }
-        };
-        // Sending the request to the server
-        request.send();
     }
 
 
@@ -449,7 +395,7 @@ File: Main Js File
             //    (body.hasAttribute("data-topbar") ? body.removeAttribute("data-topbar") : body.setAttribute("data-topbar", ""));
         } else {
             updateRadio('layout-vertical');
-            document.getElementById('sidebar-setting').style.display = "block";
+            // document.getElementById('sidebar-setting').style.display = "block";
         }
         (body.hasAttribute("data-bs-theme") && body.getAttribute("data-bs-theme") == "dark") ? updateRadio('layout-mode-dark') : updateRadio('layout-mode-light');
         (body.hasAttribute("data-layout-size") && body.getAttribute("data-layout-size") == "boxed") ? updateRadio('layout-width-boxed') : updateRadio('layout-width-fluid');
