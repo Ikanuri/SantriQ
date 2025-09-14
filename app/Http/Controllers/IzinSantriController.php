@@ -99,4 +99,16 @@ class IzinSantriController extends Controller
             return redirect()->back()->with('error', 'Data gagal dihapus');
         }
     }
+
+    // Import/Export
+    public function export()
+    {
+        return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\IzinSantriExport, 'izin_santri.xlsx');
+    }
+
+    public function import(\Illuminate\Http\Request $request)
+    {
+        \Maatwebsite\Excel\Facades\Excel::import(new \App\Imports\IzinSantriImport, $request->file('file'));
+        return back()->with('success', 'Import berhasil!');
+    }
 }

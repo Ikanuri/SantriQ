@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 class AbsensiPengajianController extends Controller
 {
     protected $model;
+
     public function __construct(Absensi $absensi)
     {
         $this->model = $absensi;
@@ -106,5 +107,17 @@ class AbsensiPengajianController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Data gagal dihapus');
         }
+    }
+
+    // Import/Export
+    public function export()
+    {
+        return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\AbsensiPengajianExport, 'absensi_pengajian.xlsx');
+    }
+
+    public function import(\Illuminate\Http\Request $request)
+    {
+        \Maatwebsite\Excel\Facades\Excel::import(new \App\Imports\AbsensiPengajianImport, $request->file('file'));
+        return back()->with('success', 'Import berhasil!');
     }
 }

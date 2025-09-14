@@ -50,4 +50,16 @@ class RayonKamarController extends Controller
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
+
+    // Import/Export
+    public function export()
+    {
+        return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\RayonKamarExport, 'rayon_kamar.xlsx');
+    }
+
+    public function import(\Illuminate\Http\Request $request)
+    {
+        \Maatwebsite\Excel\Facades\Excel::import(new \App\Imports\RayonKamarImport, $request->file('file'));
+        return back()->with('success', 'Import berhasil!');
+    }
 }

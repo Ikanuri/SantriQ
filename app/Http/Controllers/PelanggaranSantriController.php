@@ -91,4 +91,16 @@ class PelanggaranSantriController extends Controller
             return redirect()->back()->with('error', 'Data gagal dihapus');
         }
     }
+
+    // Import/Export
+    public function export()
+    {
+        return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\PelanggaranSantriExport, 'pelanggaran_santri.xlsx');
+    }
+
+    public function import(\Illuminate\Http\Request $request)
+    {
+        \Maatwebsite\Excel\Facades\Excel::import(new \App\Imports\PelanggaranSantriImport, $request->file('file'));
+        return back()->with('success', 'Import berhasil!');
+    }
 }

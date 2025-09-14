@@ -111,4 +111,16 @@ class TahunAkademikController extends Controller
             return redirect()->back()->with('error', 'Tahun Akademik gagal diaktifkan');
         }
     }
+
+    // Import/Export
+    public function export()
+    {
+        return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\TahunAkademikExport, 'tahun_akademik.xlsx');
+    }
+
+    public function import(\Illuminate\Http\Request $request)
+    {
+        \Maatwebsite\Excel\Facades\Excel::import(new \App\Imports\TahunAkademikImport, $request->file('file'));
+        return back()->with('success', 'Import berhasil!');
+    }
 }

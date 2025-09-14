@@ -80,4 +80,16 @@ class PelanggaranController extends Controller
             return redirect()->back()->with('error', 'Pelanggaran gagal dihapus');
         }
     }
+
+    // Import/Export
+    public function export()
+    {
+        return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\PelanggaranExport, 'pelanggaran.xlsx');
+    }
+
+    public function import(\Illuminate\Http\Request $request)
+    {
+        \Maatwebsite\Excel\Facades\Excel::import(new \App\Imports\PelanggaranImport, $request->file('file'));
+        return back()->with('success', 'Import berhasil!');
+    }
 }

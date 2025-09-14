@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Kamar;
 use App\Models\Santri;
 use Illuminate\Http\Request;
+use App\Exports\SantriExport;
+use App\Imports\SantriImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SantriController extends Controller
 {
@@ -105,5 +108,16 @@ class SantriController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Santri gagal dihapus');
         }
+    }
+
+    public function export()
+    {
+        return Excel::download(new SantriExport, 'santri.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new SantriImport, $request->file('file'));
+        return back()->with('success', 'Import berhasil!');
     }
 }

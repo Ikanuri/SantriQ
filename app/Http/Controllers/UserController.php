@@ -92,4 +92,16 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'Data gagal dihapus');
         }
     }
+
+    // Import/Export
+    public function export()
+    {
+        return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\UserExport, 'user.xlsx');
+    }
+
+    public function import(\Illuminate\Http\Request $request)
+    {
+        \Maatwebsite\Excel\Facades\Excel::import(new \App\Imports\UserImport, $request->file('file'));
+        return back()->with('success', 'Import berhasil!');
+    }
 }

@@ -81,4 +81,16 @@ class SuratIzinController extends Controller
             return redirect()->back()->with('error', 'Surat Izin gagal dihapus');
         }
     }
+
+    // Import/Export
+    public function export()
+    {
+        return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\SuratIzinExport, 'surat_izin.xlsx');
+    }
+
+    public function import(\Illuminate\Http\Request $request)
+    {
+        \Maatwebsite\Excel\Facades\Excel::import(new \App\Imports\SuratIzinImport, $request->file('file'));
+        return back()->with('success', 'Import berhasil!');
+    }
 }
