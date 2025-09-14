@@ -50,7 +50,7 @@
 
     {{-- alert --}}
     <script>
-        alertify.set('notifier', 'position', 'top-right');
+    alertify.set('notifier', 'position', 'top-center');
         @if (session('success'))
             alertify.success('{{ session('success') }}');
         @elseif (session('error'))
