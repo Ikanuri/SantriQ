@@ -52,7 +52,11 @@ class AbsensiPengajianController extends Controller
             'jml_hadir.min' => 'Jumlah Hadir tidak boleh kurang dari 0',
         ]);
         try {
-            $validasi['tahun_akademik_id'] = TahunAkademik::where('status', 'aktif')->first()->id;
+            $tahunAktif = TahunAkademik::where('status', true)->first();
+            if (!$tahunAktif) {
+                return redirect()->back()->with('error', 'Gagal menambahkan data, silahkan aktifkan Tahun Akademik dulu');
+            }
+            $validasi['tahun_akademik_id'] = $tahunAktif->id;
             $validasi['departemen'] = 'Pengajian';
             $this->model->create($validasi);
             return redirect()->back()->with('success', 'Data berhasil ditambahkan');

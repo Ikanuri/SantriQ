@@ -4,8 +4,9 @@ namespace App\Imports;
 
 use App\Models\Pelanggaran;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class PelanggaranImport implements ToModel
+class PelanggaranImport implements ToModel, WithHeadingRow
 {
     /**
     * @param array $row
@@ -15,7 +16,7 @@ class PelanggaranImport implements ToModel
     public function model(array $row)
     {
         return new Pelanggaran([
-            //
+            'nama' => $row['nama'] ?? null,
         ]);
     }
 }

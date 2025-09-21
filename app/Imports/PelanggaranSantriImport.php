@@ -4,8 +4,9 @@ namespace App\Imports;
 
 use App\Models\PelanggaranSantri;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class PelanggaranSantriImport implements ToModel
+class PelanggaranSantriImport implements ToModel, WithHeadingRow
 {
     /**
     * @param array $row
@@ -15,7 +16,10 @@ class PelanggaranSantriImport implements ToModel
     public function model(array $row)
     {
         return new PelanggaranSantri([
-            //
+            'santri_id'      => $row['santri_id'] ?? null,
+            'pelanggaran_id' => $row['pelanggaran_id'] ?? null,
+            'tanggal'        => $row['tanggal'] ?? null,
+            'keterangan'     => $row['keterangan'] ?? null,
         ]);
     }
 }

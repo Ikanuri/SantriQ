@@ -117,6 +117,11 @@ class SantriController extends Controller
 
     public function import(Request $request)
     {
+        $mode = $request->input('mode', 'append');
+        if ($mode === 'override') {
+            // Hapus semua data santri (delete, bukan truncate)
+            Santri::query()->delete();
+        }
         Excel::import(new SantriImport, $request->file('file'));
         return back()->with('success', 'Import berhasil!');
     }

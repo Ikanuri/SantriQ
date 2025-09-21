@@ -51,7 +51,11 @@ class AbsensiDiniyahController extends Controller
             'jml_hadir.min' => 'Jumlah Hadir tidak boleh kurang dari 0',
         ]);
         try {
-            $validasi['tahun_akademik_id'] = TahunAkademik::where('status', 'aktif')->first()->id;
+            $tahunAktif = TahunAkademik::where('status', true)->first();
+            if (!$tahunAktif) {
+                return redirect()->back()->with('error', 'Gagal menambahkan data, silahkan aktifkan Tahun Akademik dulu');
+            }
+            $validasi['tahun_akademik_id'] = $tahunAktif->id;
             $validasi['departemen'] = 'Diniyah';
             $this->model->create($validasi);
             return redirect()->back()->with('success', 'Data berhasil ditambahkan');
@@ -116,7 +120,8 @@ class AbsensiDiniyahController extends Controller
 
     public function import(\Illuminate\Http\Request $request)
     {
-        \Maatwebsite\Excel\Facades\Excel::import(new \App\Imports\AbsensiDiniyahImport, $request->file('file'));
-        return back()->with('success', 'Import berhasil!');
+    \App\Models\Absensi::where('departemen', 'Diniyah')->delete();
+    \Maatwebsite\Excel\Facades\Excel::import(new \App\Imports\AbsensiDiniyahImport, $request->file('file'));
+    return back()->with('success', 'Import berhasil! Data lama telah ditimpa.');
     }
 }

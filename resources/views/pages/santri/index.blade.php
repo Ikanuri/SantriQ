@@ -34,6 +34,7 @@
                                                 <form id="importForm" action="{{ route('santri.import') }}" method="POST" enctype="multipart/form-data" style="display:none;">
                                                     @csrf
                                                     <input type="file" name="file" accept=".xlsx,.csv" required id="importFile" style="display:none;">
+                                                    <input type="hidden" name="mode" id="importMode" value="append">
                                                 </form>
                                             </li>
                                         </ul>
@@ -116,6 +117,16 @@
                     </div>
                 </div><!-- end card header -->
                 <div class="card-body">
+        <x-modal id="importOverrideModal" title="Konfirmasi Import Data Santri" position="modal-dialog-centered">
+            <form id="confirmImportForm" class="text-center">
+                <p>Apakah Anda ingin <b>override</b> (hapus semua data santri lama sebelum import) atau <b>append</b> (menambah data baru)?</p>
+                <div class="form-group mt-3">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-danger" id="btnOverride">Override</button>
+                    <button type="button" class="btn btn-success" id="btnAppend">Append</button>
+                </div>
+            </form>
+        </x-modal>
                     <div class="table-responsive">
                         <table class="table table-striped" id="table">
                             <thead>
@@ -296,13 +307,28 @@
                 $('#nomor_kamar').after(`<small class="text-muted">Max: ${jumlah_kamar}</small>`);
             });
 
-            // Import Excel logic
+            // Import Excel logic dengan konfirmasi override
             $('#importBtn').on('click', function(e) {
                 e.preventDefault();
                 $('#importFile').click();
             });
             $('#importFile').on('change', function() {
+                if (this.files.length > 0) {
+                    var importModal = new bootstrap.Modal(document.getElementById('importOverrideModal'));
+                    importModal.show();
+                }
+            });
+            $('#btnOverride').on('click', function() {
+                $('#importMode').val('override');
                 $('#importForm').submit();
+                var importModal = bootstrap.Modal.getInstance(document.getElementById('importOverrideModal'));
+                importModal.hide();
+            });
+            $('#btnAppend').on('click', function() {
+                $('#importMode').val('append');
+                $('#importForm').submit();
+                var importModal = bootstrap.Modal.getInstance(document.getElementById('importOverrideModal'));
+                importModal.hide();
             });
         });
     </script>

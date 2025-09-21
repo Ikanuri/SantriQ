@@ -4,8 +4,9 @@ namespace App\Imports;
 
 use App\Models\SuratIzin;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class SuratIzinImport implements ToModel
+class SuratIzinImport implements ToModel, WithHeadingRow
 {
     /**
     * @param array $row
@@ -15,7 +16,10 @@ class SuratIzinImport implements ToModel
     public function model(array $row)
     {
         return new SuratIzin([
-            //
+            'nomor_surat'  => $row['nomor_surat'] ?? null,
+            'santri_id'    => $row['santri_id'] ?? null,
+            'tanggal_izin' => $row['tanggal_izin'] ?? null,
+            'keterangan'   => $row['keterangan'] ?? null,
         ]);
     }
 }
